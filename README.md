@@ -12,8 +12,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Styles
 
-Using simply using css modules in styles folder.
-We can use here styled-components or emotion styling library for more flexibilyty and better props managing.
+I'm using @emotion/styled library to add styling for more flexibilyty and better props managing.
+As well we can use simply css modules in styles folder(I added example for this).
 
 ## Type control
 
