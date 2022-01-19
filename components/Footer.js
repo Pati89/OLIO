@@ -15,7 +15,7 @@ const S_span_bold = styled.span`
 
 const Footer = () => {
   return (
-    <S_footer>
+    <S_footer data-testid="footer">
       <p>
         Developed by <S_span_bold>Patrycja Banaszczyk</S_span_bold>
       </p>

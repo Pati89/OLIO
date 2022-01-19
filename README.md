@@ -22,3 +22,23 @@ I'm using basic react propTypes. But we can use Flow or Typescript instead.
 ## Helper folder
 
 Store all reusable function and props
+
+## Unit Tests
+
+I'm using jest with React Testing library
+
+to run test
+
+```bash
+npm run test
+# or
+yarn test
+```
+
+to run test coverage
+
+```bash
+npm run test-coverage
+# or
+yarn test-coverage
+```

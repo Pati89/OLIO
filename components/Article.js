@@ -95,26 +95,37 @@ const Article = (props) => {
     props;
 
   return (
-    <S_a_card onClick={() => {}}>
-      <S_div_image>
-        {/* I'm using here next.js image. This is already lazy loaded */}
-        <Image className="image" src={imageSrc} alt={imageAlt} layout="fill" />
-      </S_div_image>
-      <S_div_card_content>
-        <S_p_title>{title}</S_p_title>
-        <S_div_user_container>
-          <S_div_user>
-            {avatarSrc && (
-              <S_div_avatar>
-                <Image src={avatarSrc} alt={avatarAlt} layout="fill" />
-              </S_div_avatar>
-            )}
-            <S_span_user avatarSrc={avatarSrc}>{user}</S_span_user>
-          </S_div_user>
-          <S_div_status status={status}>{status}</S_div_status>
-        </S_div_user_container>
-      </S_div_card_content>
-    </S_a_card>
+    <>
+      {imageSrc && (
+        <S_a_card onClick={() => {}} data-testid="article">
+          <S_div_image>
+            {/* I'm using here next.js image. This is already lazy loaded */}
+            <Image
+              className="image"
+              src={imageSrc}
+              alt={imageAlt}
+              layout="fill"
+            />
+          </S_div_image>
+          <S_div_card_content>
+            <S_p_title>{title}</S_p_title>
+            <S_div_user_container>
+              <S_div_user>
+                {avatarSrc && (
+                  <S_div_avatar data-testid="avatar">
+                    <Image src={avatarSrc} alt={avatarAlt} layout="fill" />
+                  </S_div_avatar>
+                )}
+                <S_span_user avatarSrc={avatarSrc}>{user}</S_span_user>
+              </S_div_user>
+              <S_div_status status={status} data-testid="status">
+                {status}
+              </S_div_status>
+            </S_div_user_container>
+          </S_div_card_content>
+        </S_a_card>
+      )}
+    </>
   );
 };
 
