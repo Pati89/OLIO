@@ -1,3 +1,5 @@
+// here we can add theme, fontSizes or spacing sizes to use same all over the page
+
 export const breakpoints = {
   sm: 640,
   md: 896,

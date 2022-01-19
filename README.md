@@ -18,3 +18,7 @@ As well we can use simply css modules in styles folder(I added example for this)
 ## Type control
 
 I'm using basic react propTypes. But we can use Flow or Typescript instead.
+
+## Helper folder
+
+Store all reusable function and props
