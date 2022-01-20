@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import styled from "@emotion/styled";
 import Article from "../components/Article";
@@ -54,33 +54,35 @@ const S_div_grid = styled.div`
   }
 `;
 
-const Home = () => {
-  const [articles, setArticles] = useState([]);
+const Home = (props) => {
+  const { articles } = props;
+
+  // load articles with useEffect and state
+
+  // const [articles, setArticles] = useState([]);
 
   // Fetch Articles
-  const fetchArticles = async () => {
-    try {
-      const res = await fetch(
-        "https://s3-eu-west-1.amazonaws.com/olio-staging-images/developer/test-articles-v4.json"
-      );
-      const data = await res.json();
+  // const fetchArticles = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       "https://s3-eu-west-1.amazonaws.com/olio-staging-images/developer/test-articles-v4.json"
+  //     );
+  //     const data = await res.json();
 
-      return data;
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  //     return data;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-  console.log(articles);
+  // useEffect(() => {
+  //   const getArticles = async () => {
+  //     const articlesFromServer = await fetchArticles();
+  //     setArticles(articlesFromServer);
+  //   };
 
-  useEffect(() => {
-    const getArticles = async () => {
-      const articlesFromServer = await fetchArticles();
-      setArticles(articlesFromServer);
-    };
-
-    getArticles();
-  }, []);
+  //   getArticles();
+  // }, []);
 
   return (
     <S_main_conteiner>
@@ -94,28 +96,50 @@ const Home = () => {
       <S_main_content>
         <S_h1_title>New Articles</S_h1_title>
 
-        <S_div_grid>
-          {articles.map((item) => {
-            const title = item?.title;
-            const user = item?.user?.first_name;
-            return (
-              <Article
-                key={item?.id}
-                imageSrc={item?.images[0]?.files?.medium}
-                imageAlt={title}
-                title={title}
-                avatarSrc={item?.user?.current_avatar?.small}
-                avatarAlt={user}
-                user={user}
-                status={item?.status}
-              />
-            );
-          })}
-        </S_div_grid>
+        {articles ? (
+          <S_div_grid>
+            {articles.map((item) => {
+              const { id, title, user, images, status, viewed } = item;
+
+              const userName = user?.first_name;
+
+              console.log(item);
+
+              return (
+                <Article
+                  key={id}
+                  imageSrc={images[0]?.files?.medium}
+                  title={title}
+                  avatarSrc={user?.current_avatar?.small}
+                  user={userName}
+                  status={status}
+                  articleId={id}
+                  viewed={viewed}
+                />
+              );
+            })}
+          </S_div_grid>
+        ) : (
+          <p>No Articles to show</p>
+        )}
       </S_main_content>
       <Footer />
     </S_main_conteiner>
   );
+};
+
+// load data with next.js
+export const getStaticProps = async () => {
+  const res = await fetch(
+    "https://s3-eu-west-1.amazonaws.com/olio-staging-images/developer/test-articles-v4.json"
+  );
+  const articles = await res.json();
+
+  return {
+    props: {
+      articles,
+    },
+  };
 };
 
 export default Home;

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import Image from "next/image";
+import Link from "next/link";
 import styled from "@emotion/styled";
 import { media } from "../helpers/styles";
 
@@ -11,10 +12,10 @@ const S_a_card = styled.a`
   text-align: left;
   color: inherit;
   text-decoration: none;
-  border: 1px solid black;
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
+  background-color: white;
 
   ${media.md} {
     flex-direction: column;
@@ -22,9 +23,10 @@ const S_a_card = styled.a`
 `;
 
 const S_div_image = styled.div`
+  background-color: lightgray;
   position: relative;
   width: 35%;
-  height: 100%;
+  min-height: 120px;
   max-height: 300px;
 
   ${media.md} {
@@ -91,39 +93,55 @@ const S_span_user = styled.span`
 `;
 
 const Article = (props) => {
-  const { imageSrc, imageAlt, title, avatarSrc, avatarAlt, user, status } =
-    props;
+  const {
+    imageSrc,
+    title,
+    avatarSrc,
+    user,
+    status,
+    articleId,
+    onArticleClick,
+    viewed,
+  } = props;
 
   return (
     <>
       {imageSrc && (
-        <S_a_card onClick={() => {}} data-testid="article">
-          <S_div_image>
-            {/* I'm using here next.js image. This is already lazy loaded */}
-            <Image
-              className="image"
-              src={imageSrc}
-              alt={imageAlt}
-              layout="fill"
-            />
-          </S_div_image>
-          <S_div_card_content>
-            <S_p_title>{title}</S_p_title>
-            <S_div_user_container>
-              <S_div_user>
-                {avatarSrc && (
-                  <S_div_avatar data-testid="avatar">
-                    <Image src={avatarSrc} alt={avatarAlt} layout="fill" />
-                  </S_div_avatar>
-                )}
-                <S_span_user avatarSrc={avatarSrc}>{user}</S_span_user>
-              </S_div_user>
-              <S_div_status status={status} data-testid="status">
-                {status}
-              </S_div_status>
-            </S_div_user_container>
-          </S_div_card_content>
-        </S_a_card>
+        <Link
+          href={`/article/[articleId]}`}
+          as={`/article/${articleId}`}
+          passHref
+          data-testid="article"
+        >
+          <S_a_card onClick={onArticleClick}>
+            <S_div_image>
+              {/* I'm using here next.js image. This is already lazy loaded */}
+              <Image
+                className="image"
+                src={imageSrc}
+                alt={title}
+                layout="fill"
+              />
+            </S_div_image>
+            <S_div_card_content>
+              <S_p_title>{title}</S_p_title>
+              <S_div_user_container>
+                <S_div_user>
+                  {avatarSrc && (
+                    <S_div_avatar data-testid="avatar">
+                      <Image src={avatarSrc} alt={user} layout="fill" />
+                    </S_div_avatar>
+                  )}
+                  <S_span_user avatarSrc={avatarSrc}>{user}</S_span_user>
+                </S_div_user>
+                <S_div_status status={status} data-testid="status">
+                  {status}
+                </S_div_status>
+                {viewed && <p>viewed</p>}
+              </S_div_user_container>
+            </S_div_card_content>
+          </S_a_card>
+        </Link>
       )}
     </>
   );
@@ -131,12 +149,11 @@ const Article = (props) => {
 
 Article.propTypes = {
   imageSrc: PropTypes.string,
-  imageAlt: PropTypes.string,
   title: PropTypes.string,
   avatarSrc: PropTypes.string,
-  avatarAlt: PropTypes.string,
   user: PropTypes.string,
   status: PropTypes.string,
+  onArticleClick: PropTypes.func,
 };
 
 export default Article;
