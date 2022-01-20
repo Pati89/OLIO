@@ -55,14 +55,14 @@ exports[`ArticleDetails should render a ArticleDetails match snapshot 1`] = `
   background-color: lightgray;
   position: relative;
   width: 100%;
-  height: 200px;
-  max-height: 300px;
+  height: 400px;
+  max-height: 400px;
 }
 
 @media only screen and (min-width: 640px) {
   .emotion-3 {
-    height: 400px;
-    max-height: 400px;
+    height: 600px;
+    max-height: 600px;
   }
 }
 

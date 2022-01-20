@@ -24,12 +24,12 @@ const S_div_image = styled.div`
   background-color: lightgray;
   position: relative;
   width: 100%;
-  height: 200px;
-  max-height: 300px;
+  height: 400px;
+  max-height: 400px;
 
   ${media.md} {
-    height: 400px;
-    max-height: 400px;
+    height: 600px;
+    max-height: 600px;
   }
 `;
 
