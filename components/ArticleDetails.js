@@ -111,7 +111,7 @@ const Article = (props) => {
   const description = article?.description || "No description";
 
   return (
-    <S_div_container>
+    <S_div_container data-testid="articleDetails">
       {imageSrc && (
         <S_div_image>
           <Image
@@ -142,6 +142,7 @@ const Article = (props) => {
       <S_div_description>
         <S_p_description_title>Description:</S_p_description_title>
         <S_div_description_content
+          data-testid="description"
           dangerouslySetInnerHTML={{
             __html: `${description}`,
           }}

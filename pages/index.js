@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import styled from "@emotion/styled";
 import Article from "../components/Article";
@@ -57,6 +57,15 @@ const S_div_grid = styled.div`
 const Home = (props) => {
   const { articles } = props;
 
+  const [viewedItems, setViewedItems] = useState([]);
+
+  useEffect(() => {
+    // Perform localStorage action
+    const viewed = JSON.parse(localStorage.getItem("articleViewed"));
+
+    setViewedItems(viewed);
+  }, []);
+
   // load articles with useEffect and state
 
   // const [articles, setArticles] = useState([]);
@@ -84,8 +93,17 @@ const Home = (props) => {
   //   getArticles();
   // }, []);
 
+  // add viewed id in to the localStorage
+  const addViewedItem = (id) => {
+    let store = JSON.parse(localStorage.getItem("articleViewed") || "[]");
+    if (!store.includes(id)) {
+      store.push(id);
+    }
+    localStorage.setItem("articleViewed", JSON.stringify(store));
+  };
+
   return (
-    <S_main_conteiner>
+    <S_main_conteiner data-testid="articles">
       {/* here in a Head we can add all required keywords, favicon, description
       it can be created as a component and reusable */}
       <Head>
@@ -99,11 +117,9 @@ const Home = (props) => {
         {articles ? (
           <S_div_grid>
             {articles.map((item) => {
-              const { id, title, user, images, status, viewed } = item;
+              const { id, title, user, images, status } = item;
 
               const userName = user?.first_name;
-
-              console.log(item);
 
               return (
                 <Article
@@ -114,7 +130,8 @@ const Home = (props) => {
                   user={userName}
                   status={status}
                   articleId={id}
-                  viewed={viewed}
+                  onArticleClick={() => addViewedItem(id)}
+                  viewed={viewedItems.includes(id)}
                 />
               );
             })}

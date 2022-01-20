@@ -59,4 +59,17 @@ describe("Article", () => {
     expect(getByText("inactive")).toBeTruthy();
     expect(getByTestId("status")).toHaveStyleRule("background-color", "grey");
   });
+
+  it("should show viewed badge", () => {
+    const { getByText, getByTestId } = render(
+      <Article {...props} status="inactive" />
+    );
+    expect(getByText("inactive")).toBeTruthy();
+    expect(getByTestId("status")).toHaveStyleRule("background-color", "grey");
+  });
+
+  it("should render a Article match snapshot", () => {
+    const { container } = render(<Article {...props} />);
+    expect(container).toMatchSnapshot();
+  });
 });

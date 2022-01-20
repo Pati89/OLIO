@@ -28,6 +28,7 @@ const S_div_image = styled.div`
   width: 35%;
   min-height: 120px;
   max-height: 300px;
+  opacity: ${({ viewed }) => (viewed ? "0.4" : "1")};
 
   ${media.md} {
     width: 100%;
@@ -39,6 +40,7 @@ const S_div_image = styled.div`
 const S_div_card_content = styled.div`
   width: 65%;
   margin: 20px;
+  opacity: ${({ viewed }) => (viewed ? "0.4" : "1")};
 
   ${media.md} {
     width: auto;
@@ -92,6 +94,14 @@ const S_span_user = styled.span`
   margin-left: ${({ avatarSrc }) => (avatarSrc ? "10px" : 0)};
 `;
 
+const S_div_viewed = styled.div`
+  position: absolute;
+  padding: 10px;
+  background-color: white;
+  border-top-left-radius: 8px;
+  opacity: 1;
+`;
+
 const Article = (props) => {
   const {
     imageSrc,
@@ -111,10 +121,9 @@ const Article = (props) => {
           href={`/article/[articleId]}`}
           as={`/article/${articleId}`}
           passHref
-          data-testid="article"
         >
           <S_a_card onClick={onArticleClick}>
-            <S_div_image>
+            <S_div_image viewed={viewed} data-testid="article">
               {/* I'm using here next.js image. This is already lazy loaded */}
               <Image
                 className="image"
@@ -123,7 +132,7 @@ const Article = (props) => {
                 layout="fill"
               />
             </S_div_image>
-            <S_div_card_content>
+            <S_div_card_content viewed={viewed}>
               <S_p_title>{title}</S_p_title>
               <S_div_user_container>
                 <S_div_user>
@@ -137,9 +146,9 @@ const Article = (props) => {
                 <S_div_status status={status} data-testid="status">
                   {status}
                 </S_div_status>
-                {viewed && <p>viewed</p>}
               </S_div_user_container>
             </S_div_card_content>
+            {viewed && <S_div_viewed>Viewed</S_div_viewed>}
           </S_a_card>
         </Link>
       )}

@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import ArticleDetails from "../../../components/ArticleDetails";
 import Footer from "../../../components/Footer";
@@ -52,11 +51,6 @@ const S_div_grid = styled.div`
 
 const Article = (props) => {
   const { article } = props;
-
-  const router = useRouter();
-  const { id } = router.query;
-
-  console.log(article);
 
   return (
     <S_main_conteiner>

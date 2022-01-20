@@ -12,4 +12,9 @@ describe("Footer", () => {
       "bold"
     );
   });
+
+  it("should render a Footer match snapshot", () => {
+    const { container } = render(<Footer />);
+    expect(container).toMatchSnapshot();
+  });
 });
