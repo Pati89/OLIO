@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import { media } from "../helpers/styles";
+import { getByText } from "@testing-library/react";
 
 const S_div_container = styled.div`
   width: 70%;
@@ -100,6 +101,27 @@ const S_span_user = styled.span`
   margin-left: ${({ avatarSrc }) => (avatarSrc ? "10px" : 0)};
 `;
 
+const S_a_back = styled.a`
+  display: flex;
+  align-items: center;
+  width: 70%;
+  background-color: rgb(240, 238, 238);
+  padding: 10px 0;
+
+  ${media.md} {
+    width: 80%;
+  }
+`;
+
+const S_i_arrow_back = styled.i`
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(135deg);
+  margin-right: 10px;
+`;
+
 const Article = (props) => {
   const { article } = props;
 
@@ -111,44 +133,51 @@ const Article = (props) => {
   const description = article?.description || "No description";
 
   return (
-    <S_div_container data-testid="articleDetails">
-      {imageSrc && (
-        <S_div_image>
-          <Image
-            className="image"
-            src={imageSrc}
-            alt={articleTitle}
-            layout="fill"
+    <>
+      <Link href="/" passHref>
+        <S_a_back>
+          <S_i_arrow_back /> Back
+        </S_a_back>
+      </Link>
+      <S_div_container data-testid="articleDetails">
+        {imageSrc && (
+          <S_div_image>
+            <Image
+              className="image"
+              src={imageSrc}
+              alt={articleTitle}
+              layout="fill"
+            />
+          </S_div_image>
+        )}
+        <S_div_card_content>
+          <S_h1_title>{articleTitle}</S_h1_title>
+          <S_div_user_container>
+            <S_div_user>
+              {avatarSrc && (
+                <S_div_avatar data-testid="avatar">
+                  <Image src={avatarSrc} alt={user} layout="fill" />
+                </S_div_avatar>
+              )}
+              <S_span_user avatarSrc={avatarSrc}>{user}</S_span_user>
+            </S_div_user>
+            <S_div_status status={status} data-testid="status">
+              {status}
+            </S_div_status>
+          </S_div_user_container>
+        </S_div_card_content>
+        <S_div_divider />
+        <S_div_description>
+          <S_p_description_title>Description:</S_p_description_title>
+          <S_div_description_content
+            data-testid="description"
+            dangerouslySetInnerHTML={{
+              __html: `${description}`,
+            }}
           />
-        </S_div_image>
-      )}
-      <S_div_card_content>
-        <S_h1_title>{articleTitle}</S_h1_title>
-        <S_div_user_container>
-          <S_div_user>
-            {avatarSrc && (
-              <S_div_avatar data-testid="avatar">
-                <Image src={avatarSrc} alt={user} layout="fill" />
-              </S_div_avatar>
-            )}
-            <S_span_user avatarSrc={avatarSrc}>{user}</S_span_user>
-          </S_div_user>
-          <S_div_status status={status} data-testid="status">
-            {status}
-          </S_div_status>
-        </S_div_user_container>
-      </S_div_card_content>
-      <S_div_divider />
-      <S_div_description>
-        <S_p_description_title>Description:</S_p_description_title>
-        <S_div_description_content
-          data-testid="description"
-          dangerouslySetInnerHTML={{
-            __html: `${description}`,
-          }}
-        />
-      </S_div_description>
-    </S_div_container>
+        </S_div_description>
+      </S_div_container>
+    </>
   );
 };
 

@@ -53,7 +53,7 @@ const Article = (props) => {
   const { article } = props;
 
   return (
-    <S_main_conteiner>
+    <S_main_conteiner data-testid="articleDetails">
       <Head>
         <title>Article</title>
         <meta name="description" content="Article Details" />

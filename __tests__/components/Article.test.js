@@ -61,11 +61,8 @@ describe("Article", () => {
   });
 
   it("should show viewed badge", () => {
-    const { getByText, getByTestId } = render(
-      <Article {...props} status="inactive" />
-    );
-    expect(getByText("inactive")).toBeTruthy();
-    expect(getByTestId("status")).toHaveStyleRule("background-color", "grey");
+    const { getByText } = render(<Article {...props} viewed />);
+    expect(getByText("Viewed")).toBeTruthy();
   });
 
   it("should render a Article match snapshot", () => {
