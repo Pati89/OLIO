@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import { media } from "../helpers/styles";
-import { getByText } from "@testing-library/react";
 
 const S_div_container = styled.div`
   width: 70%;
