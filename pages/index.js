@@ -131,7 +131,7 @@ const Home = (props) => {
                   status={status}
                   articleId={id}
                   onArticleClick={() => addViewedItem(id)}
-                  viewed={viewedItems.includes(id)}
+                  viewed={viewedItems?.includes(id)}
                 />
               );
             })}

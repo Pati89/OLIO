@@ -3,7 +3,6 @@
 exports[`Article should render a Article match snapshot 1`] = `
 .emotion-0 {
   width: 100%;
-  height: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

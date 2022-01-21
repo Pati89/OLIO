@@ -6,7 +6,6 @@ import { media } from "../helpers/styles";
 
 const S_a_card = styled.a`
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: row;
   text-align: left;
